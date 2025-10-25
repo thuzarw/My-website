@@ -3,49 +3,431 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ကျွန်ုပ်၏ Website</title>
+    <title>VPN Service - လုံခြုံသော အင်တာနက်အသုံးပြုမှု</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Pyidaungsu', 'Myanmar3', sans-serif;
             line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            background-image: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)), 
+                              url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230a0a0a"/><path d="M0 0L100 100M100 0L0 100" stroke="%231a1a1a" stroke-width="1"/></svg>');
+            min-height: 100vh;
         }
+        
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: white;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
+        
+        header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 30px 0;
+            border-bottom: 2px solid #00a8ff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00a8ff, #0097e6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: 0 0 15px rgba(0, 168, 255, 0.5);
+        }
+        
+        .logo-icon::before {
+            content: "VPN";
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
         h1 {
-            color: #2c3e50;
+            color: #00a8ff;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 168, 255, 0.3);
+        }
+        
+        .tagline {
+            text-align: center;
+            color: #b0b0b0;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            border: 1px solid #333;
+        }
+        
+        .nav-links a:hover {
+            background: #00a8ff;
+            color: #0a0a0a;
+            box-shadow: 0 0 15px rgba(0, 168, 255, 0.5);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(45, 45, 45, 0.9) 100%);
+            padding: 60px 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            text-align: center;
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero h2 {
+            color: #00a8ff;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #d0d0d0;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #00a8ff, #0097e6);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 168, 255, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 168, 255, 0.6);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 168, 255, 0.2);
+            border-color: #00a8ff;
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #00a8ff, #0097e6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+            color: white;
+        }
+        
+        .feature-card h3 {
+            color: #00a8ff;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .pricing {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(45, 45, 45, 0.9) 100%);
+            padding: 50px 30px;
+            border-radius: 15px;
+            margin: 50px 0;
+            text-align: center;
+            border: 1px solid #333;
+        }
+        
+        .pricing h2 {
+            color: #00a8ff;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+        }
+        
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .pricing-card {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-card.popular {
+            border-color: #00a8ff;
+            box-shadow: 0 0 20px rgba(0, 168, 255, 0.3);
+            transform: scale(1.05);
+        }
+        
+        .pricing-card h3 {
+            color: #00a8ff;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            color: #e0e0e0;
+            margin: 20px 0;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: #b0b0b0;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+            color: #d0d0d0;
+        }
+        
+        .pricing-features li:before {
+            content: "✓ ";
+            color: #00a8ff;
+            font-weight: bold;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 40px 0;
+            margin-top: 50px;
+            border-top: 2px solid #00a8ff;
             text-align: center;
         }
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            display: block;
-            margin: 0 auto 20px;
-            background-color: #ddd;
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            color: #e0e0e0;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: #00a8ff;
+        }
+        
+        .copyright {
+            color: #b0b0b0;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .pricing-card.popular {
+                transform: scale(1);
+            }
         }
     </style>
 </head>
 <body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h1>SecureVPN</h1>
+            </div>
+            <p class="tagline">လုံခြုံပြီး အမြန်နှုန်းမြင့် VPN ဝန်ဆောင်မှု</p>
+            
+            <ul class="nav-links">
+                <li><a href="#features">အားသာချက်များ</a></li>
+                <li><a href="#pricing">စျေးနှုန်း</a></li>
+                <li><a href="#download">ဒေါင်းလုဒ်</a></li>
+                <li><a href="#support">အကူအညီ</a></li>
+            </ul>
+        </div>
+    </header>
+    
     <div class="container">
-        <img src="https://via.placeholder.com/150" alt="Profile" class="profile-img">
-        <h1>မင်္ဂလာပါ! ကျွန်ုပ်၏ Website မှကြိုဆိုပါတယ်</h1>
-        <p>ဤ website ကို GitHub ကိုအသုံးပြုပြီး ဖန်တီးထားခြင်းဖြစ်ပါတယ်။</p>
+        <section class="hero">
+            <h2>သင့်ဒီဂျစ်တယ်လုံခြုံရေးကို ကာကွယ်ပါ</h2>
+            <p>ကျွန်ုပ်တို့၏ အဆင့်မြင့် VPN ဝန်ဆောင်မှုဖြင့် သင့်အင်တာနက်လှိုင်းကို လုံခြုံစွာ အသုံးပြုနိုင်ပါပြီ။ ကမ္ဘာတစ်ဝန်းရှိ ဆာဗာများဖြင့် မြန်နှုန်းပြည့် ချိတ်ဆက်နိုင်သည်။</p>
+            <a href="#download" class="btn">အခုပဲစတင်အသုံးပြုရန်</a>
+        </section>
         
-        <h2>ကျွန်ုပ်အကြောင်း</h2>
-        <p>ကျွန်ုပ်သည် web development ကိုစိတ်ဝင်စားသူတစ်ယောက်ဖြစ်ပါတယ်။</p>
+        <section id="features">
+            <h2 style="text-align: center; color: #00a8ff; margin-bottom: 40px; font-size: 2.2rem;">ကျွန်ုပ်တို့၏ အားသာချက်များ</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>လုံခြုံမှုအပြည့်</h3>
+                    <p>စစ်မှန်သော လုံခြုံရေးအတွက် AES-256 နည်းပညာဖြင့် ကာကွယ်ထားသည်။ သင့်ဒေတာများကို မည်သူမှ ချိုးဖောက်၍မရပါ။</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>ကမ္ဘာတစ်ဝန်း ဆာဗာများ</h3>
+                    <p>နိုင်ငံပေါင်း ၉၀ ကျော်တွင် ဆာဗာပေါင်း ၃,၀၀၀ ကျော်ဖြင့် မည်သည့်နေရာမှမဆို ချိတ်ဆက်နိုင်သည်။</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>မြန်နှုန်းမြင့်</h3>
+                    <p>အကန့်အသတ်မရှိ ဘန်းဝိုင်းအသုံးပြုခွင့်ဖြင့် 4K/HD ဗီဒီယိုများကို ချောမောစွာ ကြည့်ရှုနိုင်သည်။</p>
+                </div>
+            </div>
+        </section>
         
-        <h2>ဆက်သွယ်ရန်</h2>
-        <p>Email: example@email.com</p>
+        <section id="pricing" class="pricing">
+            <h2>စျေးနှုန်းသတ်မှတ်ချက်များ</h2>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3>လစဉ်</h3>
+                    <div class="price">၁၀,၀၀၀ ကျပ်<span>/လ</span></div>
+                    <ul class="pricing-features">
+                        <li>ကန့်သတ်ချက်မရှိ ဒေတာ</li>
+                        <li>နိုင်ငံပေါင်း ၉၀ ကျော်ရှိ ဆာဗာများ</li>
+                        <li>၅ ခုအထိ ကိရိယာချိတ်ဆက်ခွင့်</li>
+                        <li>၂၄ နာရီ အကူအညီ</li>
+                    </ul>
+                    <a href="#" class="btn" style="width: 100%; text-align: center;">ဝယ်ယူရန်</a>
+                </div>
+                
+                <div class="pricing-card popular">
+                    <h3>နှစ်စဉ်</h3>
+                    <div class="price">၈၀,၀၀၀ ကျပ်<span>/နှစ်</span></div>
+                    <ul class="pricing-features">
+                        <li>ကန့်သတ်ချက်မရှိ ဒေတာ</li>
+                        <li>နိုင်ငံပေါင်း ၉၀ ကျော်ရှိ ဆာဗာများ</li>
+                        <li>၁၀ ခုအထိ ကိရိယာချိတ်ဆက်ခွင့်</li>
+                        <li>၂၄ နာရီ အကူအညီ</li>
+                        <li>အထူးအခွင့်အရေးများ</li>
+                    </ul>
+                    <a href="#" class="btn" style="width: 100%; text-align: center;">ဝယ်ယူရန်</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>အခမဲ့</h3>
+                    <div class="price">၀ ကျပ်<span>/အမြဲ</span></div>
+                    <ul class="pricing-features">
+                        <li>လစဉ် ၅ GB ဒေတာ</li>
+                        <li>နိုင်ငံ ၃ ခုရှိ ဆာဗာများ</li>
+                        <li>၁ ခုတည်းသော ကိရိယာချိတ်ဆက်ခွင့်</li>
+                        <li>အခြေခံ အကူအညီ</li>
+                    </ul>
+                    <a href="#" class="btn" style="width: 100%; text-align: center;">စတင်အသုံးပြုရန်</a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="download" style="text-align: center; margin: 60px 0;">
+            <h2 style="color: #00a8ff; margin-bottom: 30px; font-size: 2.2rem;">ဒေါင်းလုဒ်ရယူရန်</h2>
+            <p style="margin-bottom: 30px; font-size: 1.2rem;">သင့်ရဲ့ ကိရိယာအတွက် SecureVPN ကို အခုပဲ ဒေါင်းလုဒ်ရယူလိုက်ပါ။</p>
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                <a href="#" class="btn">Windows</a>
+                <a href="#" class="btn">Mac</a>
+                <a href="#" class="btn">Android</a>
+                <a href="#" class="btn">iOS</a>
+            </div>
+        </section>
     </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3 style="color: #00a8ff; margin-bottom: 20px;">SecureVPN</h3>
+                <p style="max-width: 600px; margin-bottom: 20px;">သင့်ရဲ့ အွန်လိုင်းလုံခြုံရေးနှင့် ကိုယ်ရေးကိုယ်တာလွတ်လပ်ခွင့်အတွက် ကျွန်ုပ်တို့ ရည်စူးထားပါသည်။</p>
+                
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📷</a>
+                    <a href="#">💼</a>
+                </div>
+                
+                <p class="copyright">© 2023 SecureVPN. မူပိုင်ခွင့်အားလုံးရှိသည်။</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
